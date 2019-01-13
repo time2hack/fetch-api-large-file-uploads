@@ -1,0 +1,29 @@
+{
+  "private": true,
+  "name": "fetch-api-large-file-uploads",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/time2hack/fetch-api-large-file-uploads.git"
+  },
+  "keywords": [],
+  "author": "Pankaj Patel (http://pankaj.pro)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/time2hack/fetch-api-large-file-uploads/issues"
+  },
+  "homepage": "https://github.com/time2hack/fetch-api-large-file-uploads#readme",
+  "dependencies": {
+    "boom": "^7.3.0",
+    "del": "^3.0.0",
+    "hapi": "^17.8.1",
+    "inert": "^5.1.2",
+    "lokijs": "^1.5.6",
+    "uuid": "^3.3.2"
+  }
+}
