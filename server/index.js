@@ -3,22 +3,15 @@
 const fs = require('fs');
 const Hapi = require('hapi');
 const Boom = require('boom');
-const Loki = require('lokijs');
 
-const {
-    imageFilter, loadCollection, cleanFolder,
-    uploader
-} = require('./utils');
+const { cleanDirectory, uploader } = require('./utils');
 
 // setup
-const DB_NAME = 'db.json';
-const COLLECTION_NAME = 'images';
 const UPLOAD_PATH = 'uploads';
-const fileOptions = { dest: `${UPLOAD_PATH}/`, fileFilter: imageFilter };
-const db = new Loki(`${UPLOAD_PATH}/${DB_NAME}`, { persistenceMethod: 'fs' });
+const fileOptions = { dest: `${UPLOAD_PATH}/` };
 
-// optional: clean all data before start
-// cleanFolder(UPLOAD_PATH);
+cleanDirectory(UPLOAD_PATH);
+
 if (!fs.existsSync(UPLOAD_PATH)) fs.mkdirSync(UPLOAD_PATH);
 
 const server = Hapi.server({
@@ -47,13 +40,9 @@ const init = async () => {
             try {
                 const data = request.payload;
                 const file = data['heavyFile'];
-
+                console.log(file);
                 const fileDetails = await uploader(file, fileOptions);
-                const col = await loadCollection(COLLECTION_NAME, db);
-                const result = col.insert(fileDetails);
-
-                db.saveDatabase();
-                return { id: result.$loki, fileName: result.filename, originalName: result.originalname };
+                return fileDetails;
             } catch (err) {
                 return Boom.badRequest(err.message, err);
             }
